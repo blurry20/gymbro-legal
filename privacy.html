@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>gymbro — Política de privacidad</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <p class="brand">gymbro</p>
+  <h1>Política de privacidad</h1>
+  <p class="muted">Última actualización: 11 de noviembre de 2026</p>
+
+  <p>
+    gymbro registra tus comidas y calcula un plan de calorías a partir de datos que tú entregas.
+    Esta página explica qué se guarda, por qué, con quién se comparte y cómo borrarlo.
+  </p>
+
+  <h2>Qué datos se recogen</h2>
+  <table>
+    <tr><th>Dato</th><th>Para qué</th></tr>
+    <tr><td>Correo electrónico y nombre</td><td>Identificar tu cuenta e iniciar sesión.</td></tr>
+    <tr>
+      <td>Identificador de tu proveedor de acceso (Google)</td>
+      <td>Reconocerte cuando vuelves a entrar con ese proveedor.</td>
+    </tr>
+    <tr>
+      <td>Edad, sexo, estatura, peso, peso objetivo y, si lo indicas, porcentaje de grasa corporal</td>
+      <td>Calcular tu gasto energético y tu objetivo diario de calorías y macronutrientes.</td>
+    </tr>
+    <tr>
+      <td>Actividad: tipo de trabajo, pasos diarios, días y minutos de entrenamiento</td>
+      <td>Estimar cuánta energía gastas al día.</td>
+    </tr>
+    <tr><td>Registros de peso con su fecha</td><td>Comparar tu progreso real contra el plan.</td></tr>
+    <tr>
+      <td>Comidas registradas: alimentos, gramos, calorías, macronutrientes, fecha y momento del día</td>
+      <td>Mostrar tu diario y lo que llevas consumido.</td>
+    </tr>
+  </table>
+
+  <h2>Las fotos de tus comidas</h2>
+  <div class="card">
+    <p>
+      Cuando fotografías una comida, la imagen se envía a nuestro servidor y de ahí al servicio de
+      análisis para identificar los alimentos y estimar sus calorías.
+    </p>
+    <p>
+      <strong>La fotografía no se almacena.</strong> Lo que se guarda es el resultado del análisis
+      — los nombres de los alimentos, los gramos y las calorías — junto con una huella digital
+      (<em>hash</em>) de la imagen, que permite reconocer una foto idéntica sin volver a analizarla.
+      Esa huella no permite reconstruir la imagen ni identificar a quien la tomó.
+    </p>
+  </div>
+
+  <h2>Con quién se comparten</h2>
+  <table>
+    <tr><th>Tercero</th><th>Qué recibe</th></tr>
+    <tr><td>Anthropic</td><td>La fotografía de la comida, para analizarla.</td></tr>
+    <tr>
+      <td>USDA FoodData Central</td>
+      <td>El nombre genérico de un alimento, para obtener su información nutricional. No se envía nada tuyo.</td>
+    </tr>
+    <tr><td>Google</td><td>Gestiona el inicio de sesión si eliges esa opción.</td></tr>
+    <tr><td>Railway y Supabase</td><td>Alojan el servidor y la base de datos.</td></tr>
+  </table>
+  <p>No se venden datos a nadie, ni se usan para publicidad.</p>
+
+  <h2>Lo que gymbro no hace</h2>
+  <ul>
+    <li>No incluye analítica de terceros ni rastreadores publicitarios.</li>
+    <li>No accede a tu ubicación, contactos, micrófono ni historial de navegación.</li>
+    <li>No comparte tus datos con otros usuarios.</li>
+  </ul>
+  <p class="muted">
+    Los recordatorios son notificaciones locales: se programan en tu teléfono y no pasan por ningún
+    servidor.
+  </p>
+
+  <h2>Cuánto tiempo se conservan</h2>
+  <p>
+    Mientras tengas la cuenta abierta. Cuando la eliminas, se borran de inmediato y de forma
+    permanente, sin período de gracia ni copia oculta.
+  </p>
+  <p>
+    La única excepción es la caché de análisis descrita arriba: está indexada por la huella de la
+    imagen, no contiene ninguna referencia a quién la subió y es compartida entre todos los usuarios.
+    Al no estar asociada a ninguna persona, no se elimina con la cuenta.
+  </p>
+
+  <h2>Tus derechos</h2>
+  <p>
+    Puedes consultar tus datos desde la propia aplicación, corregirlos cambiando tus respuestas, y
+    eliminarlos por completo. <a href="./delete-account.html">Cómo eliminar tu cuenta</a>.
+  </p>
+
+  <h2>Menores de edad</h2>
+  <p>
+    gymbro no está dirigida a menores de 16 años y no recoge datos de forma consciente de personas
+    por debajo de esa edad.
+  </p>
+
+  <h2>Contacto</h2>
+  <p>Para cualquier duda sobre esta política: <a href="mailto:CORREO-DE-CONTACTO">CORREO-DE-CONTACTO</a>.</p>
+
+  <footer>
+    gymbro · desarrollado por Augusto Castillo ·
+    <a href="./index.html">Volver</a>
+  </footer>
+</main>
+</body>
+</html>
