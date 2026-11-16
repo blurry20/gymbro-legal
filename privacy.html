@@ -10,11 +10,11 @@
 <main>
   <p class="brand">gymbro</p>
   <h1>Política de privacidad</h1>
-  <p class="muted">Última actualización: 11 de noviembre de 2026</p>
+  <p class="muted">Última actualización: 15 de noviembre de 2026</p>
 
   <p>
-    gymbro registra tus comidas y calcula un plan de calorías a partir de datos que tú entregas.
-    Esta página explica qué se guarda, por qué, con quién se comparte y cómo borrarlo.
+    gymbro registra tus comidas y tus suplementos, calcula un plan de calorías a partir de datos
+    que tú entregas y, si tu gimnasio la usa, te permite reservar horas en él. Esta página explica qué se guarda, por qué, con quién se comparte y cómo borrarlo.
   </p>
 
   <h2>Qué datos se recogen</h2>
@@ -38,7 +38,46 @@
       <td>Comidas registradas: alimentos, gramos, calorías, macronutrientes, fecha y momento del día</td>
       <td>Mostrar tu diario y lo que llevas consumido.</td>
     </tr>
+    <tr>
+      <td>Suplementos: los que eliges (de la lista o con un nombre propio), si son diarios u
+        ocasionales, la hora de su recordatorio y los días en que los tomaste</td>
+      <td>Mostrar tu lista del día, calcular tu racha y programar tus recordatorios.</td>
+    </tr>
+    <tr>
+      <td>Gimnasio: a qué gimnasio perteneces, el estado de tu solicitud y tu rol (miembro o
+        administrador)</td>
+      <td>Darte acceso a las reservas de ese gimnasio, o a su administración.</td>
+    </tr>
+    <tr>
+      <td>Reservas: el horario, la fecha, cuándo reservaste y si la cancelaste</td>
+      <td>Guardar tu cupo y aplicar las reglas de reserva del gimnasio.</td>
+    </tr>
+    <tr>
+      <td>Identificador de notificaciones de tu teléfono, su sistema (Android o iOS) y su idioma</td>
+      <td>Enviarte avisos de tu gimnasio en tu idioma.</td>
+    </tr>
+    <tr>
+      <td>Si pediste una invitación a la beta: correo y nombre</td>
+      <td>Avisarte cuando tengas acceso.</td>
+    </tr>
   </table>
+
+  <h2>Tu gimnasio</h2>
+  <div class="card">
+    <p>
+      Si te unes a un gimnasio con su código, <strong>sus administradores ven tu nombre y tu
+      correo</strong>, tu solicitud para unirte y las horas que reservas o cancelas. Lo necesitan
+      para aprobarte y para saber quién va a asistir a cada horario.
+    </p>
+    <p>
+      Los administradores no ven tus comidas, tu peso, tu perfil energético ni tus suplementos.
+      Nada de eso sale de tu cuenta.
+    </p>
+    <p>
+      Si administras un gimnasio, recibes avisos cuando alguien reserva, cancela, pide unirse o
+      deja el gimnasio. Esos avisos incluyen el nombre de la persona.
+    </p>
+  </div>
 
   <h2>Las fotos de tus comidas</h2>
   <div class="card">
@@ -63,6 +102,18 @@
       <td>El nombre genérico de un alimento, para obtener su información nutricional. No se envía nada tuyo.</td>
     </tr>
     <tr><td>Google</td><td>Gestiona el inicio de sesión si eliges esa opción.</td></tr>
+    <tr>
+      <td>Expo y Google Firebase Cloud Messaging</td>
+      <td>
+        El identificador de notificaciones de tu teléfono y el texto de cada aviso, para hacerlo
+        llegar. En los avisos para administradores, ese texto incluye el nombre de quien reservó,
+        canceló o pidió unirse.
+      </td>
+    </tr>
+    <tr>
+      <td>Nager.Date</td>
+      <td>Solo el país y el año, para conocer los feriados de Chile. No se envía nada tuyo.</td>
+    </tr>
     <tr><td>Railway y Supabase</td><td>Alojan el servidor y la base de datos.</td></tr>
   </table>
   <p>No se venden datos a nadie, ni se usan para publicidad.</p>
@@ -71,17 +122,24 @@
   <ul>
     <li>No incluye analítica de terceros ni rastreadores publicitarios.</li>
     <li>No accede a tu ubicación, contactos, micrófono ni historial de navegación.</li>
-    <li>No comparte tus datos con otros usuarios.</li>
+    <li>
+      No comparte tus datos con otros usuarios, salvo lo que ven los administradores de un
+      gimnasio al que te uniste (descrito arriba).
+    </li>
   </ul>
   <p class="muted">
-    Los recordatorios son notificaciones locales: se programan en tu teléfono y no pasan por ningún
-    servidor.
+    Los recordatorios de tus suplementos son notificaciones locales: se programan en tu teléfono y
+    no pasan por ningún servidor. Solo los avisos de tu gimnasio llegan desde nuestro servidor.
   </p>
 
   <h2>Cuánto tiempo se conservan</h2>
   <p>
     Mientras tengas la cuenta abierta. Cuando la eliminas, se borran de inmediato y de forma
     permanente, sin período de gracia ni copia oculta.
+  </p>
+  <p>
+    Si un gimnasio te nombró administrador antes de que tuvieras cuenta, guardamos tu correo hasta
+    que la crees o hasta que se retire ese nombramiento.
   </p>
   <p>
     La única excepción es la caché de análisis descrita arriba: está indexada por la huella de la
