@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The address carries a gym's join code. Keep it out of search results and out of referrers. -->
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>gymbro — Únete a tu gimnasio</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .code {
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: 6px;
+    color: var(--accent);
+    margin: 4px 0 12px;
+    word-break: break-all;
+  }
+  .button {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 800;
+    padding: 16px 20px;
+    border-radius: 999px;
+    margin-top: 12px;
+    border: 0;
+    font-size: 16px;
+    width: 100%;
+    cursor: pointer;
+  }
+  .button.primary { background: var(--accent); color: #14120b; }
+  .button.subtle { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .button.small { width: auto; display: inline-block; padding: 8px 16px; font-size: 14px; margin: 0; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <p class="brand">gymbro</p>
+
+  <!-- Shown when the link carries a usable code. -->
+  <section id="invite" hidden>
+    <h1>Tu gimnasio te invita a gymbro</h1>
+    <p class="muted">Usa este código para pedir tu ingreso. El gimnasio aprueba tu solicitud antes de darte acceso.</p>
+
+    <div class="card">
+      <p class="muted" style="margin:0">Código de tu gimnasio</p>
+      <p class="code" id="code"></p>
+      <button class="button subtle small" id="copy" type="button">Copiar código</button>
+    </div>
+
+    <ol class="steps">
+      <li id="step-install">Si todavía no tienes la aplicación, instálala desde Google Play.</li>
+      <li>Toca <strong>Abrir en gymbro</strong>. El código se completa solo; inicia sesión o crea tu cuenta.</li>
+      <li>Espera a que tu gimnasio apruebe la solicitud.</li>
+    </ol>
+
+    <a class="button primary" id="open" href="#">Abrir en gymbro</a>
+    <a class="button subtle" id="store" href="https://play.google.com/store/apps/details?id=cl.gymbro.app">Descargar en Google Play</a>
+
+    <p class="muted" id="platform-note" hidden>Por ahora gymbro está disponible para Android. Abre este enlace desde tu teléfono Android.</p>
+    <p class="muted">Si la aplicación no se abre, ábrela tú y escribe el código en «¿Tu gimnasio tiene convenio?».</p>
+  </section>
+
+  <!-- Shown when the link has no code, or one that could not be a join code. -->
+  <section id="broken" hidden>
+    <h1>Este enlace está incompleto</h1>
+    <p>No trae un código de gimnasio válido. Vuelve a escanear el código QR de tu gimnasio, o pídele el código en recepción y escríbelo en la aplicación.</p>
+  </section>
+
+  <footer>gymbro · <a href="./privacy.html">Privacidad</a></footer>
+</main>
+
+<script>
+(function () {
+  var PACKAGE = 'cl.gymbro.app';
+  var STORE = 'https://play.google.com/store/apps/details?id=' + PACKAGE;
+
+  // Whatever arrives in the address is treated as text typed by a stranger: stripped to the
+  // characters a join code can contain, and only ever written with textContent.
+  var raw = new URLSearchParams(window.location.search).get('code') || '';
+  var code = raw.replace(/[\s-]/g, '').toUpperCase();
+  if (!/^[A-Z0-9]{4,32}$/.test(code)) {
+    document.getElementById('broken').hidden = false;
+    return;
+  }
+
+  document.getElementById('code').textContent = code;
+  document.getElementById('invite').hidden = false;
+
+  var isAndroid = /Android/i.test(navigator.userAgent);
+  var open = document.getElementById('open');
+  if (isAndroid) {
+    // An intent link rather than a bare gymbro:// one: Chrome opens the app when it is
+    // installed and goes to its Play listing when it is not, instead of doing nothing.
+    open.href = 'intent://join?code=' + encodeURIComponent(code) +
+      '#Intent;scheme=gymbro;package=' + PACKAGE +
+      ';S.browser_fallback_url=' + encodeURIComponent(STORE) + ';end';
+  } else {
+    open.href = 'gymbro://join?code=' + encodeURIComponent(code);
+    document.getElementById('platform-note').hidden = false;
+  }
+
+  var copy = document.getElementById('copy');
+  copy.addEventListener('click', function () {
+    var done = function () { copy.textContent = 'Código copiado'; };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(code).then(done, function () {});
+    }
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The address carries a gym's join code. Keep it out of search results and out of referrers. -->
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>gymbro — Cartel para tu gimnasio</title>
+<style>
+  /* Its own sheet, not the site's dark one: this page exists to be printed, and a black
+     background is a cartridge of ink and a QR code that scans badly. */
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #e9eaec;
+    color: #14120b;
+    font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  .toolbar {
+    max-width: 210mm;
+    margin: 0 auto;
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .toolbar p { margin: 0; color: #4a4d55; font-size: 14px; max-width: 46ch; }
+  .toolbar button {
+    border: 0;
+    border-radius: 999px;
+    background: #14120b;
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 12px 22px;
+    cursor: pointer;
+  }
+  .sheet {
+    width: 210mm;
+    max-width: 100%;
+    min-height: 297mm;
+    margin: 0 auto 32px;
+    background: #fff;
+    padding: 22mm 18mm;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .brand { font-size: 20px; font-weight: 800; letter-spacing: 6px; text-transform: uppercase; }
+  .brand span { color: #c98a00; }
+  h1 { font-size: 40px; line-height: 1.15; margin: 14mm 0 4mm; }
+  .gym { font-size: 24px; font-weight: 700; margin: 0 0 10mm; color: #4a4d55; }
+  .qr { width: 96mm; height: 96mm; }
+  .qr svg { width: 100%; height: 100%; display: block; }
+  .or { margin: 10mm 0 2mm; color: #4a4d55; font-size: 16px; }
+  .code { font-size: 44px; font-weight: 800; letter-spacing: 10px; margin: 0; }
+  .steps { margin: 12mm 0 0; padding: 0; list-style: none; text-align: left; font-size: 17px; }
+  .steps li { margin: 3mm 0; }
+  .steps b { display: inline-block; width: 9mm; }
+  .foot { margin-top: auto; padding-top: 10mm; color: #6b6f78; font-size: 13px; }
+  .broken { max-width: 60ch; margin: 48px auto; padding: 0 16px; }
+  [hidden] { display: none !important; }
+
+  @page { size: A4; margin: 0; }
+  @media print {
+    body { background: #fff; }
+    .toolbar { display: none; }
+    .sheet { margin: 0; width: 210mm; min-height: 297mm; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar" id="toolbar" hidden>
+  <p>Imprime esta hoja y pégala en un lugar visible del gimnasio. Si generas un código nuevo, este cartel deja de funcionar y hay que imprimirlo otra vez.</p>
+  <button type="button" id="print">Imprimir cartel</button>
+</div>
+
+<article class="sheet" id="sheet" hidden>
+  <div class="brand">gym<span>bro</span></div>
+  <h1>Únete desde tu teléfono</h1>
+  <p class="gym" id="gym"></p>
+  <div class="qr" id="qr" role="img" aria-label="Código QR para unirte al gimnasio"></div>
+  <p class="or">o escribe este código en la aplicación</p>
+  <p class="code" id="code"></p>
+  <ol class="steps">
+    <li><b>1.</b>Escanea el código con la cámara de tu teléfono.</li>
+    <li><b>2.</b>Instala gymbro si aún no la tienes, e inicia sesión o crea tu cuenta.</li>
+    <li><b>3.</b>El gimnasio aprueba tu solicitud y listo.</li>
+  </ol>
+  <p class="foot">gymbro · disponible para Android</p>
+</article>
+
+<section class="broken" id="broken" hidden>
+  <h1>Falta el código del gimnasio</h1>
+  <p>Este cartel se abre desde el panel del gimnasio en la aplicación, que le agrega el código. Ábrelo desde ahí.</p>
+</section>
+
+<script src="vendor/qrcode-generator.min.js"></script>
+<script>
+(function () {
+  var params = new URLSearchParams(window.location.search);
+
+  // Treated as text typed by a stranger: reduced to what a join code can be, and only ever
+  // written with textContent.
+  var code = (params.get('code') || '').replace(/[\s-]/g, '').toUpperCase();
+  if (!/^[A-Z0-9]{4,32}$/.test(code)) {
+    document.getElementById('broken').hidden = false;
+    return;
+  }
+
+  // The QR leads to the join page that sits beside this one, wherever the site is hosted.
+  var join = new URL('join.html', window.location.href);
+  join.search = '?code=' + encodeURIComponent(code);
+
+  // Error correction "M": about 15% of the code can be damaged - a scuffed poster - and it
+  // still reads, without making the squares so small that a phone across the desk cannot.
+  var qr = qrcode(0, 'M');
+  qr.addData(join.href);
+  qr.make();
+  document.getElementById('qr').innerHTML = qr.createSvgTag({ cellSize: 8, margin: 4, scalable: true });
+
+  document.getElementById('code').textContent = code;
+  var name = (params.get('name') || '').trim().slice(0, 80);
+  var gym = document.getElementById('gym');
+  if (name) {
+    gym.textContent = name;
+  } else {
+    gym.hidden = true;
+  }
+
+  document.getElementById('sheet').hidden = false;
+  document.getElementById('toolbar').hidden = false;
+  document.getElementById('print').addEventListener('click', function () { window.print(); });
+})();
+</script>
+</body>
+</html>
